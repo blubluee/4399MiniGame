@@ -4,26 +4,16 @@ public abstract class ASingleton: DisposeObject {
 
 public abstract class Singleton<T>: ASingleton where T: Singleton<T> {
 
-    private bool isDisposed;
+    private bool _isDisposed;
 
-    [StaticField]
-    private static T instance;
-
-    public static T Instance {
-        get {
-            return instance;
-        }
-        private set {
-            instance = value;
-        }
-    }
+    public static T Instance { get; private set; }
 
     internal override void Register() {
         Instance = (T)this;
     }
 
     public bool IsDisposed() {
-        return this.isDisposed;
+        return this._isDisposed;
     }
 
     protected virtual void Destroy() {
@@ -31,13 +21,13 @@ public abstract class Singleton<T>: ASingleton where T: Singleton<T> {
     }
 
     public override void Dispose() {
-        if (this.isDisposed) {
+        if (this._isDisposed) {
             return;
         }
 
-        this.isDisposed = true;
+        this._isDisposed = true;
 
-        this.Destroy():
+        this.Destroy();
         
         Instance = null;
     }
