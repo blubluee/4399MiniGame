@@ -8,8 +8,6 @@ using UnityEngine;
 /// </summary>
 public class CharacterSkillManager : MonoBehaviour
 {
-    private const string SkillPrefabPath = "Skill/";
-
     // 技能列表
     public SkillData[] skills;
 
@@ -24,7 +22,7 @@ public class CharacterSkillManager : MonoBehaviour
     
     private void InitSkill(SkillData data)
     {
-        data.skillPrefab = Resources.Load<GameObject>(SkillPrefabPath + data.skillPrefabName);
+        data.skillPrefab = ResourceManager.Load<GameObject>(data.skillPrefabName);
         data.owner = gameObject;
     }
     
